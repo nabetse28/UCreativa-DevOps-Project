@@ -2,4 +2,4 @@
 /mongo_db/
 
 # Environment files
-.env
+*.env
