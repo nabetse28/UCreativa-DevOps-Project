@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+  namespace: myapp
+  labels:
+    app: ucreativa-proyecto-microservicios
+    tier: volumeclaim
+spec:
+  storageClassName: ''
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeName: mongo-pv
