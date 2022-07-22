@@ -5,7 +5,7 @@ services:
   frontend-svc:
     build: 
       dockerfile: Dockerfile
-      context: ../UC-FundamentosDevOps-FrontEnd/
+      context: ../frontend/
     ports:
       - 8090:3000
     links:
