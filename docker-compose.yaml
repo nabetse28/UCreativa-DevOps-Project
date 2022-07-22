@@ -5,7 +5,7 @@ services:
   frontend-svc:
     build: 
       dockerfile: Dockerfile
-      context: ../frontend/
+      context: ./frontend/
     ports:
       - 8090:3000
     links:
@@ -14,8 +14,8 @@ services:
       - backend-svc
   backend-svc:
     build:
-      context: .
       dockerfile: Dockerfile
+      context: ./backend/
     ports:
       - 8080:5000
     # Make sure to create your .env
