@@ -1,0 +1,10 @@
+*.*
+node_modules/
+
+# Except these files
+!src/
+!public/
+!nginx/
+!package.json
+!package-lock.json
+

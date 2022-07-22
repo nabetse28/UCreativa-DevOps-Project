@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+# UPDATE API
+kind: Ingress
+metadata:
+  name: ingress-svc
+  namespace: myapp
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    # ADD ANNOTATION
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    # UPDATE ANNOTATION
+spec:
+  defaultBackend:
+    service:
+      name: frontend-svc
+      port:
+        number: 3000
+  # rules:
+  #   # This is used if your api doesn't contain any versioning, e.g,
+  #   # your api path is /person and /status and you don't use
+  #   # /api/v1/person or /api/v1/status. But, if you have a nginx
+  #   # inside the frontend doing this routing you don't need these rules
+  #   - host: myapp.local
+  #     http:
+  #       paths:
+  #         - path: /?(.*)
+  #           # UPDATE PATH
+  #           pathType: Prefix
+  #           # ADD PATHTYPE
+  #           backend:
+  #             service:
+  #               # UPDATE SERVICE FIELDS
+  #               name: frontend-svc
+  #               port:
+  #                 number: 3000
+  #         - path: /api/v1/?(.*)
+  #           # UPDATE PATH
+  #           pathType: Prefix
+  #           # ADD PATHTYPE
+  #           backend:
+  #             service:
+  #               # UPDATE SERVICE FIELDS
+  #               name: backend-svc
+  #               port:
+  #                 number: 5000
+# status:
+#   loadBalancer:
+#     ingress:
+#       - hostname: localhost
