@@ -1,2 +1,5 @@
 # MongoDB local files
 /mongo_db/
+
+# Environment files
+**.env
