@@ -26,6 +26,13 @@ export default class MenuExamplePointing extends Component {
             active={activeItem === "Add People"}
             onClick={this.handleItemClick}
           />
+          <Menu.Item
+            as={Link}
+            to="/Update"
+            name="Update info"
+            active={activeItem === "Update"}
+            onClick={this.handleItemClick}
+          />
         </Menu>
       </div>
     );
