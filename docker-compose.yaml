@@ -1,17 +1,6 @@
 version: "3"
 
 services:
-
-  frontend-svc:
-    build: 
-      dockerfile: Dockerfile
-      context: ./frontend/
-    ports:
-      - 8090:3000
-    links:
-      - backend-svc
-    depends_on:
-      - backend-svc
   backend-svc:
     build:
       dockerfile: Dockerfile
@@ -29,9 +18,18 @@ services:
     depends_on:
       - mongo_db
     volumes:
-      - .:/app
-    restart: on-failure
-
+      - ./backend:/app
+    restart: always
+  frontend-svc:
+    build: 
+      dockerfile: Dockerfile
+      context: ./frontend
+    ports:
+      - 8090:3000
+    links:
+      - backend-svc
+    depends_on:
+      - backend-svc
   mongo_db:
     image: mongo:latest
     ports:
@@ -41,6 +39,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_SERVER=${MONGO_SERVER}
     restart: always
     volumes:
       - ./mongo_db:/data/db
