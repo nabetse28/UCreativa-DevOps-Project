@@ -4,6 +4,7 @@ import HeaderPeople from "./components/Header";
 import MenuExamplePointing from "./components/Menu";
 import People from "./components/People";
 import AddPeople from "./components/AddPeople";
+import EditPerson from "./components/EditPerson"; 
 
 class App extends React.Component {
   
@@ -12,12 +13,15 @@ class App extends React.Component {
       <div>
         <HeaderPeople />
         <Router>
+        </Router>
+        <Router>
           <MenuExamplePointing />
           <Route exact path="/">
             <Redirect to="/People" />
           </Route>
           <Route path="/People" exact render={() => <People />} />
           <Route path="/AddPeople" exact render={() => <AddPeople />} />
+          <Route path="/EditPerson" exact render={() => <EditPerson />} />
         </Router>
       </div>
     );

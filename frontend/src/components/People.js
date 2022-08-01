@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Segment, Card, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+//import { Router } from "react-router-dom";
+import EditPerson from "./EditPerson"; 
 
 export default class People extends Component {
   constructor(props) {
@@ -54,6 +57,15 @@ export default class People extends Component {
                     }}
                   >
                     Delete
+                  </Button>
+                  <Button
+                    color="blue"
+                    as={Link}
+                    to="/EditPerson"
+                    name="EditPerson"
+                    onClick={this.handleItemClick}
+                  >
+                    Update
                   </Button>
                 </Card.Content>
               </Card>
