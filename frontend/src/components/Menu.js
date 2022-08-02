@@ -14,23 +14,16 @@ export default class MenuExamplePointing extends Component {
         <Menu pointing>
           <Menu.Item
             as={Link}
-            to="/People"
+            to="/people"
             name="People"
             active={activeItem === "People"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
             as={Link}
-            to="/AddPeople"
+            to="/addpeople"
             name="Add People"
             active={activeItem === "Add People"}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            as={Link}
-            to="/Update"
-            name="Update info"
-            active={activeItem === "Update"}
             onClick={this.handleItemClick}
           />
         </Menu>

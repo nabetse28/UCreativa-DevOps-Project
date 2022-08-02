@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Segment, Card, Button } from "semantic-ui-react";
+import { Link, withRouter  } from "react-router-dom";
 import axios from "axios";
 
-export default class People extends Component {
+class People extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // people: [{_id: "12345", name: "Test", age: 0, background: "test", description: "test"}],
       people: [],
     };
   }
@@ -21,6 +23,9 @@ export default class People extends Component {
     this.setState({ people: people.data.data });
   }
 
+  updatePerson = (id) => {
+    console.log(`Update ${id}`);
+  }
   deletePerson = (id) => {
     console.log(id);
   };
@@ -40,14 +45,17 @@ export default class People extends Component {
                   <Card.Description>{person.description}</Card.Description>
                 </Card.Content>
                 <Card.Content extra style={{ textAlign: "center" }}>
-                <Button
-                    color="blue"
-                    onClick={() => {
-                      console.log(`Update ${person._id}`);
-                    }}
-                  >
-                    Update
-                  </Button>
+                  <Link to={`/update/${person._id}`}>
+                    <Button
+                      color="blue"
+                      onClick={() => {
+                        this.updatePerson(person._id);
+                      }}
+                    >
+                      Update
+                    </Button>
+                  </Link>
+                
                   <Button
                     color="red"
                     onClick={() => {
@@ -61,7 +69,7 @@ export default class People extends Component {
                         .catch((err) => console.log(err));
                     }}
                   >
-                    Update
+                    Delete
                   </Button>
                 </Card.Content>
               </Card>
@@ -87,3 +95,6 @@ export default class People extends Component {
     );
   }
 }
+
+
+export default withRouter(People);
