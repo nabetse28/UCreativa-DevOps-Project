@@ -40,6 +40,14 @@ export default class People extends Component {
                   <Card.Description>{person.description}</Card.Description>
                 </Card.Content>
                 <Card.Content extra style={{ textAlign: "center" }}>
+                <Button
+                    color="blue"
+                    onClick={() => {
+                      console.log(`Update ${person._id}`);
+                    }}
+                  >
+                    Update
+                  </Button>
                   <Button
                     color="red"
                     onClick={() => {
@@ -53,7 +61,7 @@ export default class People extends Component {
                         .catch((err) => console.log(err));
                     }}
                   >
-                    Delete
+                    Update
                   </Button>
                 </Card.Content>
               </Card>
