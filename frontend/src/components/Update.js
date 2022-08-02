@@ -125,7 +125,7 @@ export default class UpdateDetails extends Component {
                 //   .catch((err) => console.log(err));
               }}
             >
-              Submit
+              Update
             </Form.Button>
             <Form.Button
               onClick={() => {
