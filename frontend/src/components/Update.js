@@ -6,10 +6,6 @@ export default class UpdateDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // name: "",
-      // age: 0,
-      // background: "",
-      // description: "",
       id: this.props.match.params.id,
       person: {},
     };
@@ -25,9 +21,8 @@ export default class UpdateDetails extends Component {
   }
 
   async fetchPerson() {
-    // const people = await axios.get("http://localhost/api/v1" + "/person");
     const person = await axios.get("/api/v1/person/" + this.state.id).catch((err) => console.log(err));
-    console.log(person);
+    // console.log(person);
     this.setState({ person: person.data.data });
   }
 
@@ -106,38 +101,22 @@ export default class UpdateDetails extends Component {
               primary
               onClick={() => {
                 console.log(this.state.person);
-                // axios
-                //     .patch("/api/v1/person", {
-                //     name: this.state.name,
-                //     age: this.state.age,
-                //     description: this.state.description,
-                //     background: this.state.background,
-                //   })
-                //   .then((res) => {
-                //     // console.log(res);
-                //     this.setState({
-                //       name: "",
-                //       age: 0,
-                //       background: "",
-                //       description: "",
-                //     });
-                //   })
-                //   .catch((err) => console.log(err));
+                axios
+                    .patch("/api/v1/person/" + this.state.id, {
+                    name: this.state.person.name,
+                    age: this.state.person.age,
+                    description: this.state.person.description,
+                    background: this.state.person.background,
+                  })
+                  .then((res) => {
+                    // console.log(res);
+                    this.props.history.push("/addpeople")
+                    // this.fetchPerson();
+                  })
+                  .catch((err) => console.log(err));
               }}
             >
-              Submit
-            </Form.Button>
-            <Form.Button
-              onClick={() => {
-                this.setState({
-                  name: "",
-                  age: 0,
-                  background: "",
-                  description: "",
-                });
-              }}
-            >
-              Reset
+              Update
             </Form.Button>
           </Form.Group>
         </Form>

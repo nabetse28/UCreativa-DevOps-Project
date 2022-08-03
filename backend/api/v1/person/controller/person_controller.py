@@ -69,4 +69,12 @@ class PersonGetById(Resource):
     @NS_PERSON.response(code=500, description="Internal server error")
     @cors.crossdomain(origin="*")
     def patch(self, id):
-        return {"message": "A person"}, 200
+        data = request.get_json()
+        person = Person(**data)
+        person._id = id
+        updated = person.update_person()
+
+        if not updated:
+            return {"message": "Person was not updated"}, 400
+
+        return {"message": "Person was updated successfully"}, 200
