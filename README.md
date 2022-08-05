@@ -57,5 +57,5 @@ MONGO_SERVER=mongo_db
 docker-compose up --build -d
 ```
 
-5. Una vez el comando corra exitosamente la aplicacion estara disponible localmente en el localhost:8090.. 
+5. Una vez el comando corra exitosamente la aplicacion estara disponible localmente en el localhost:8090...
 
