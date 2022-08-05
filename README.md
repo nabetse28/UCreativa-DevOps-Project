@@ -26,7 +26,7 @@ Esta aplicacion tiene como objetivo mediante la interfaz grafica poder crear una
 - [GitHubActions](https://docs.github.com/en/actions) Tool that will be used to create the CI/CD pipeline
 - [Kubernetes](https://kubernetes.io/) is a tool that enables the creation of clusters in a local machine or even a virtual machine, it is used along with Docker to create big applications.
 - [Helm](https://helm.sh/) is a package manager for the kubernetes files, it is used within the project.
-- [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) is a managed service that you can use to run Kubernetes on AWS without needing to install, operate, and maintain your own Kubernetes control plane or nodes.
+- [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) is a managed service that you can use to run Kubernetes on AWS without needing to install, operate, and maintain your own Kubernetes control plane or nodes..
 
 ## Instalar dependencias y probar el app localmente con Docker Compose
 
