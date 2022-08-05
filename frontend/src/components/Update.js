@@ -116,7 +116,7 @@ export default class UpdatePerson extends Component {
                     background: this.state.person.background,
                   })
                   .then((res) => {
-                    this.props.history.push("/home/addpeople")
+                    this.props.history.push("/home/people")
                   })
                   .catch((err) => console.log(err));
               }}
