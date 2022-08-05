@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Segment, Card, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default class People extends Component {
+export default class GetPeople extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // people: [{_id: "12345", name: "Test", age: 0, background: "test", description: "test"}],
       people: [],
     };
   }
@@ -21,8 +23,17 @@ export default class People extends Component {
     this.setState({ people: people.data.data });
   }
 
+  updatePerson = (id) => {
+    console.log(`Update ${id}`);
+  }
   deletePerson = (id) => {
     console.log(id);
+    axios
+      .delete("/api/v1/person/" + id)
+      .then((res) => {
+        this.fetchPeople();
+      })
+      .catch((err) => console.log(err));
   };
 
   PeopleCards = () => {
@@ -40,17 +51,18 @@ export default class People extends Component {
                   <Card.Description>{person.description}</Card.Description>
                 </Card.Content>
                 <Card.Content extra style={{ textAlign: "center" }}>
+                  <Link to={`/home/update/${person._id}`}>
+                    <Button
+                      color="teal"
+                    >
+                      Update
+                    </Button>
+                  </Link>
+                
                   <Button
                     color="red"
                     onClick={() => {
-                      axios
-                        // .delete("http://localhost/api/v1" + "/person/" + person._id)
-                        .delete("/api/v1/person/" + person._id)
-                        .then((res) => {
-                          // console.log(res);
-                          this.fetchPeople();
-                        })
-                        .catch((err) => console.log(err));
+                      this.deletePerson(person._id)
                     }}
                   >
                     Delete

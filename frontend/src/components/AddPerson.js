@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, TextArea, Segment } from "semantic-ui-react";
 import axios from "axios";
 
-export default class AddPeople extends Component {
+export default class AddPerson extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,21 +12,21 @@ export default class AddPeople extends Component {
       description: "",
     };
 
-    this.PersonName = this.PersonName.bind(this);
-    this.Background = this.Background.bind(this);
-    this.Age = this.Age.bind(this);
-    this.Description = this.Description.bind(this);
+    this.onPersonName = this.onPersonName.bind(this);
+    this.onBackground = this.onBackground.bind(this);
+    this.onAge = this.onAge.bind(this);
+    this.onDescription = this.onDescription.bind(this);
   }
-  PersonName(event) {
+  onPersonName(event) {
     this.setState({ name: event.target.value });
   }
-  Background(event) {
+  onBackground(event) {
     this.setState({ background: event.target.value });
   }
-  Age(event) {
+  onAge(event) {
     this.setState({ age: event.target.value });
   }
-  Description(event) {
+  onDescription(event) {
     this.setState({ description: event.target.value });
   }
 
@@ -39,14 +39,14 @@ export default class AddPeople extends Component {
               label="Complete Name"
               placeholder="Complete Name"
               width={6}
-              onChange={this.PersonName}
+              onChange={this.onPersonName}
               value={this.state.name}
             />
             <Form.Input
               label="Background"
               placeholder="Describe your background here..."
               width={6}
-              onChange={this.Background}
+              onChange={this.onBackground}
               value={this.state.background}
             />
             <Form.Input
@@ -54,7 +54,7 @@ export default class AddPeople extends Component {
               placeholder="Age"
               width={4}
               type="number"
-              onChange={this.Age}
+              onChange={this.onAge}
               value={this.state.age}
             />
           </Form.Group>
@@ -63,16 +63,16 @@ export default class AddPeople extends Component {
             control={TextArea}
             label="Description"
             placeholder="Tell us more about your background..."
-            onChange={this.Description}
+            onChange={this.onDescription}
             value={this.state.description}
           />
           <Form.Group inline>
             <Form.Button
-              primary
+              color='teal'
               onClick={() => {
                 axios
                   // .post("http://localhost/api/v1/person", {
-                    .post("/api/v1" + "/person", {
+                    .post("/api/v1/person", {
                     name: this.state.name,
                     age: this.state.age,
                     description: this.state.description,
@@ -93,6 +93,7 @@ export default class AddPeople extends Component {
               Submit
             </Form.Button>
             <Form.Button
+              
               onClick={() => {
                 this.setState({
                   name: "",

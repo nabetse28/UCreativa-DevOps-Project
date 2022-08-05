@@ -1,3 +1,4 @@
+from copy import deepcopy
 from db_utils.mongoclient import DB_Client
 from bson.objectid import ObjectId
 
@@ -17,6 +18,14 @@ class Person:
 
     def create_person(self):
         result = db.insert_one(self.COLLECTION, self.__dict__)
+        if not result.acknowledged:
+            return False
+        return True
+
+    def update_person(self):
+        data = deepcopy(self.__dict__)
+        data.pop("_id")
+        result = db.update_data(self.COLLECTION, values_dict={"_id": ObjectId(self._id)}, update_dict=data)
         if not result.acknowledged:
             return False
         return True
