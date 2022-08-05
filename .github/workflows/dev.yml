@@ -1,6 +1,12 @@
 name: CI/CD
 
-on: [workflow_dispatch]  
+on:
+  push:
+    branches: [ dev ]
+  pull_request: 
+    branches: [ dev ]
+
+
   
 env:
   REPO: nabetse28/UCreativa-DevOps-Project
