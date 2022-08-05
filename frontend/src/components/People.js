@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Segment, Card, Button } from "semantic-ui-react";
-import { Link, withRouter  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-class People extends Component {
+export default class GetPeople extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +28,12 @@ class People extends Component {
   }
   deletePerson = (id) => {
     console.log(id);
+    axios
+      .delete("/api/v1/person/" + id)
+      .then((res) => {
+        this.fetchPeople();
+      })
+      .catch((err) => console.log(err));
   };
 
   PeopleCards = () => {
@@ -45,12 +51,9 @@ class People extends Component {
                   <Card.Description>{person.description}</Card.Description>
                 </Card.Content>
                 <Card.Content extra style={{ textAlign: "center" }}>
-                  <Link to={`/update/${person._id}`}>
+                  <Link to={`/home/update/${person._id}`}>
                     <Button
-                      color="blue"
-                      onClick={() => {
-                        this.updatePerson(person._id);
-                      }}
+                      color="teal"
                     >
                       Update
                     </Button>
@@ -59,14 +62,7 @@ class People extends Component {
                   <Button
                     color="red"
                     onClick={() => {
-                      axios
-                        // .delete("http://localhost/api/v1" + "/person/" + person._id)
-                        .delete("/api/v1/person/" + person._id)
-                        .then((res) => {
-                          // console.log(res);
-                          this.fetchPeople();
-                        })
-                        .catch((err) => console.log(err));
+                      this.deletePerson(person._id)
                     }}
                   >
                     Delete
@@ -95,6 +91,3 @@ class People extends Component {
     );
   }
 }
-
-
-export default withRouter(People);

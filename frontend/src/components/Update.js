@@ -2,18 +2,19 @@ import React, { Component } from "react";
 import { Form, TextArea, Segment } from "semantic-ui-react";
 import axios from "axios";
 
-export default class UpdateDetails extends Component {
+export default class UpdatePerson extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.id,
       person: {},
+      // person: {_id: "12345", name: "Test", age: 0, background: "test", description: "test"},
     };
     // console.log(this.props.match.params.id);
-    this.PersonName = this.PersonName.bind(this);
-    this.Background = this.Background.bind(this);
-    this.Age = this.Age.bind(this);
-    this.Description = this.Description.bind(this);
+    this.onPersonName = this.onPersonName.bind(this);
+    this.onBackground = this.onBackground.bind(this);
+    this.onAge = this.onAge.bind(this);
+    this.onDescription = this.onDescription.bind(this);
   }
 
   componentDidMount() {
@@ -26,16 +27,15 @@ export default class UpdateDetails extends Component {
     this.setState({ person: person.data.data });
   }
 
-  PersonName(event) {
+  onPersonName(event) {
     this.setState(prevState => ({
       person: {
         ...prevState.person,
         name: event.target.value
       }
     }));
-    // this.setState({ name: event.target.value });
   }
-  Background(event) {
+  onBackground(event) {
     this.setState(prevState => ({
       person: {
         ...prevState.person,
@@ -43,7 +43,7 @@ export default class UpdateDetails extends Component {
       }
     }));
   }
-  Age(event) {
+  onAge(event) {
     this.setState(prevState => ({
       person: {
         ...prevState.person,
@@ -51,7 +51,7 @@ export default class UpdateDetails extends Component {
       }
     }));
   }
-  Description(event) {
+  onDescription(event) {
     this.setState(prevState => ({
       person: {
         ...prevState.person,
@@ -69,14 +69,14 @@ export default class UpdateDetails extends Component {
               label="Update Name"
               placeholder="Update Name"
               width={6}
-              onChange={this.PersonName}
+              onChange={this.onPersonName}
               value={this.state.person.name}
             />
             <Form.Input
               label="Update Background"
               placeholder="Update your background here..."
               width={6}
-              onChange={this.Background}
+              onChange={this.onBackground}
               value={this.state.person.background}
             />
             <Form.Input
@@ -84,7 +84,7 @@ export default class UpdateDetails extends Component {
               placeholder="Update Age"
               width={4}
               type="number"
-              onChange={this.Age}
+              onChange={this.onAge}
               value={this.state.person.age}
             />
           </Form.Group>
@@ -93,12 +93,19 @@ export default class UpdateDetails extends Component {
             control={TextArea}
             label="Description"
             placeholder="Tell us more about your background..."
-            onChange={this.Description}
+            onChange={this.onDescription}
             value={this.state.person.description}
           />
           <Form.Group inline>
             <Form.Button
-              primary
+              onClick={() => {
+                this.props.history.push('/home/')
+              }}
+            >
+              Back
+            </Form.Button>
+            <Form.Button
+              color='teal'
               onClick={() => {
                 console.log(this.state.person);
                 axios
@@ -109,15 +116,14 @@ export default class UpdateDetails extends Component {
                     background: this.state.person.background,
                   })
                   .then((res) => {
-                    // console.log(res);
-                    this.props.history.push("/addpeople")
-                    // this.fetchPerson();
+                    this.props.history.push("/home/addpeople")
                   })
                   .catch((err) => console.log(err));
               }}
             >
               Update
             </Form.Button>
+            
           </Form.Group>
         </Form>
       </Segment>
