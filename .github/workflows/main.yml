@@ -19,7 +19,7 @@ env:
 
 jobs:
   test:
-    name: Test
+    name: Test & Secure
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
