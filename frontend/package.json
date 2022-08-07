@@ -20,8 +20,8 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts --openssl-legacy-provider test --watchAll=false",
-    "eject": "react-scripts --openssl-legacy-provider eject"
+    "test": "react-scripts test --watchAll=false",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
