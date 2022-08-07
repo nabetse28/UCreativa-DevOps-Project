@@ -21,7 +21,8 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Python set up
         uses: actions/setup-python@v3
         with:
@@ -66,7 +67,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set Github Short SHA & TIMESTAMP
         run: |
           echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
@@ -107,6 +109,10 @@ jobs:
           fail-build: false
 
       - name: Push Docker images
+        env:
+          BACKEND: '${{env.DOCKER_USERNAME}}/backend'
+          FRONTEND: '${{env.DOCKER_USERNAME}}/frontend'
+          BUILD_TAG: ${{env.RUN_ID}}-${{env.BRANCH}}-${{env.SHORT_SHA}}-${{env.TIMESTAMP}}
         run: |
           docker push '${{env.BACKEND}}:${{env.BUILD_TAG}}'
           docker push '${{env.BACKEND}}:latest'
