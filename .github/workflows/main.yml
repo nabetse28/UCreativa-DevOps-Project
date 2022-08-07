@@ -99,6 +99,7 @@ jobs:
           image: '${{env.BACKEND}}:latest'
           acs-report-enable: true
           fail-build: false
+          severity-cutoff: critical
 
       - name: Scan Frontend Docker image
         uses: anchore/scan-action@v3
