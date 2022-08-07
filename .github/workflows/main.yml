@@ -10,6 +10,7 @@ on:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   WORKSPACE: ${{ github.workspace }}
   RUN_ID: ${{ github.run_id }}
   BRANCH: ${{ github.ref_name }}
