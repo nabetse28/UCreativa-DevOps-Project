@@ -1,5 +1,6 @@
-# UCreativa-DevOps-Project
+# UCreativa-DevOps-Project ![CI/CD](https://github.com/nabetse28/UCreativa-DevOps-Project/actions/workflows/main.yml/badge.svg)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=nabetse28_UCreativa-DevOps-Project&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=nabetse28_UCreativa-DevOps-Project)
 ## Descripcion 
 
 Proyecto en el que se realizara todo el proceso DevOps para el desarrollo y despliegue de una aplicacion web con funciones CRUD, cuyo backend esta escrito en Python y frontend en REACT. 
