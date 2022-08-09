@@ -150,7 +150,7 @@ jobs:
 
       - name: Update kube config
         run: |
-          aws eks update-kubeconfig --name ${{env.AWS_CLUSTER_NAME}} --region "${{ env.AWS_REGION}} "
+          aws eks update-kubeconfig --name ${{env.AWS_CLUSTER_NAME}} --region "${{ env.AWS_REGION}}"
 
       - name: Deploy application to Amazon EKS
         run: |
