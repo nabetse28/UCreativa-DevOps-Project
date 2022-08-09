@@ -21,8 +21,8 @@ env:
   NAMESPACE: 'ucreativa'
   HELM_CHART: 'helm/ucreativa-devops-project'
   HELM_RELEASE: 'ucreativa-devops-project'
-  AWS_CLUSTER_NAME: 'ucreativaCluster'
-  AWS_REGION: 'us-east-1'
+  AWS_CLUSTER_NAME: 'ucreativa-cluster'
+  AWS_REGION: 'us-west-1'
 
 jobs:
   test:
@@ -150,7 +150,7 @@ jobs:
 
       - name: Update kube config
         run: |
-          aws eks update-kubeconfig --name ${{env.AWS_CLUSTER_NAME}} --region "${{ env.AWS_REGION}}"
+          aws eks update-kubeconfig --name ${{env.AWS_CLUSTER_NAME}} --region ${{env.AWS_REGION}}
 
       - name: Deploy application to Amazon EKS
         run: |
@@ -158,5 +158,5 @@ jobs:
 
       - name: Getting application host
         run: |
-          HOST=$(kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer.ingress[0].ip}' -n ${{ env.NAMESPACE }})
+          HOST=$(kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' -n ${{ env.NAMESPACE }})
           echo "The application is running at http://${HOST}"
