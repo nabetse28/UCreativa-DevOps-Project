@@ -44,7 +44,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r backend/requirements.txt
           pip install pytest
 
       - name: Lint with flake8
@@ -60,16 +59,19 @@ jobs:
           cd backend
           pytest .
           cd ..
+
       - name: Frontend test
         run: |
           cd frontend
           npm run test
           cd ..
+
       - name: Sonarcloud scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -146,8 +148,14 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }} --region {{ env.AWS_REGION }}
+        run: |
+          aws eks update-kubeconfig --name ${{env.AWS_CLUSTER_NAME}} --region {{env.AWS_REGION}}
 
       - name: Deploy application to Amazon EKS
         run: |
-          helm upgrade ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART }} --install --set mongo.password=$(echo ${{ env.MONGO_PASSWORD }} | base64) --set mongo.username=$(echo ${{ env.MONGO_USERNAME }} | base64) --set image.repository=${{ env.DOCKER_USERNAME }} --namespace=${{ env.NAMESPACE }} --create-namespace
+          helm upgrade ${{env.HELM_RELEASE}} ${{env.HELM_CHART}} --install --set mongo.password=$(echo ${{env.MONGO_PASSWORD}} | base64) --set mongo.username=$(echo ${{env.MONGO_USERNAME}} | base64) --set image.repository=${{env.DOCKER_USERNAME}} --namespace=${{env.NAMESPACE}} --create-namespace
+
+      - name: Getting application host
+        run: |
+          HOST=$(kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer.ingress[0].ip}' -n ${{ env.NAMESPACE }})
+          echo "The application is running at http://${HOST}"
