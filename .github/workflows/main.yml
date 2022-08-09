@@ -18,7 +18,7 @@ env:
   BRANCH: ${{ github.ref_name }}
   REPO: ${{ github.repository }}
   COMMIT: ${{ github.sha }}
-  NAMESPACE: 'UCreativa'
+  NAMESPACE: 'ucreativa'
   HELM_CHART: 'helm/ucreativa-devops-project'
   HELM_RELEASE: 'ucreativa-devops-project'
   AWS_CLUSTER_NAME: 'ucreativaCluster'
