@@ -156,7 +156,7 @@ jobs:
 
       - name: Deploy application to Amazon EKS
         run: |
-          helm upgrade ${{env.HELM_RELEASE}} ${{env.HELM_CHART}} --install  --set mongo.username=${{env.MONGO_USERNAME}} --set mongo.password=${{env.MONGO_PASSWORD}} --set image.repository=${{env.DOCKER_USERNAME}} --namespace=${{env.NAMESPACE}} --create-namespace
+          helm upgrade ${{env.HELM_RELEASE}} ${{env.HELM_CHART}} --install  --set mongo.username='${{env.MONGO_USERNAME}}' --set mongo.password='${{env.MONGO_PASSWORD}}' --set image.repository=${{env.DOCKER_USERNAME}} --namespace=${{env.NAMESPACE}} --create-namespace
 
       - name: Getting application host
         run: |
