@@ -13,6 +13,8 @@ env:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
   WORKSPACE: ${{ github.workspace }}
   RUN_ID: ${{ github.run_id }}
   BRANCH: ${{ github.ref_name }}
@@ -21,8 +23,8 @@ env:
   NAMESPACE: 'ucreativa'
   HELM_CHART: 'helm/ucreativa-devops-project'
   HELM_RELEASE: 'ucreativa-devops-project'
-  AWS_CLUSTER_NAME: 'ucreativa-cluster'
-  AWS_REGION: 'us-west-1'
+  AWS_CLUSTER_NAME: 'ucreativaCluster'
+  AWS_REGION: 'us-east-1'
 
 jobs:
   test:
@@ -154,7 +156,7 @@ jobs:
 
       - name: Deploy application to Amazon EKS
         run: |
-          helm upgrade ${{env.HELM_RELEASE}} ${{env.HELM_CHART}} --install --set mongo.password=$(echo ${{env.MONGO_PASSWORD}} | base64) --set mongo.username=$(echo ${{env.MONGO_USERNAME}} | base64) --set image.repository=${{env.DOCKER_USERNAME}} --namespace=${{env.NAMESPACE}} --create-namespace
+          helm upgrade ${{env.HELM_RELEASE}} ${{env.HELM_CHART}} --install --set mongo.password=${{env.MONGO_PASSWORD}} --set mongo.username=${{env.MONGO_USERNAME}} --set image.repository=${{env.DOCKER_USERNAME}} --namespace=${{env.NAMESPACE}} --create-namespace
 
       - name: Getting application host
         run: |
