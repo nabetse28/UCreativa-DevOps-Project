@@ -162,6 +162,5 @@ jobs:
 
       - name: Getting application host
         run: |
-          kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer}' -n ${{env.NAMESPACE}}
           HOST=$(kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' -n ${{env.NAMESPACE}})
-          echo $HOST
+          echo "\n\n Your application is available at $HOST \n\n"
