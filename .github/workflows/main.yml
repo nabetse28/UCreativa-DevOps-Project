@@ -160,6 +160,5 @@ jobs:
 
       - name: Getting application host
         run: |
-          echo "  Your application is available at  "
-          kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' -n ${{env.NAMESPACE}}
-          
+          HOST=$(kubectl get services/frontend-svc -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' -n ${{env.NAMESPACE}})
+          echo "  Your application is available at http://${HOST}  "
