@@ -118,6 +118,7 @@ jobs:
           image: '${{env.FRONTEND}}:latest'
           acs-report-enable: true
           fail-build: false
+          severity-cutoff: critical
 
       - name: Push Docker images
         env:
