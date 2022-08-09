@@ -11,11 +11,18 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   WORKSPACE: ${{ github.workspace }}
   RUN_ID: ${{ github.run_id }}
   BRANCH: ${{ github.ref_name }}
   REPO: ${{ github.repository }}
   COMMIT: ${{ github.sha }}
+  NAMESPACE: 'UCreativa'
+  HELM_CHART: 'helm/ucreativa-devops-project'
+  HELM_RELEASE: 'ucreativa-devops-project'
+  AWS_CLUSTER_NAME: 'ucreativaCluster'
+  AWS_REGION: 'us-east-1'
 
 jobs:
   test:
@@ -128,29 +135,19 @@ jobs:
     needs: [test, build]
 
     steps:
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v1
-        with:
-          version: 'v1.21.3'
-        id: install
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-east-1
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --name simple-bank --region eu-east-1
+        run: aws eks update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }} --region {{ env.AWS_REGION }}
 
-      - name: Deploy image to Amazon EKS
+      - name: Deploy application to Amazon EKS
         run: |
-          kubectl apply -f eks/aws-auth.yaml
-          kubectl apply -f eks/deployment.yaml
-          kubectl apply -f eks/service.yaml
-          kubectl apply -f eks/issuer.yaml
-          kubectl apply -f eks/ingress.yaml
+          helm upgrade ${{ env.HELM_RELEASE }} ${{ env.HELM_CHART }} --install --set mongo.password=$(echo ${{ env.MONGO_PASSWORD }} | base64) --set mongo.username=$(echo ${{ env.MONGO_USERNAME }} | base64) --set image.repository=${{ env.DOCKER_USERNAME }} --namespace=${{ env.NAMESPACE }} --create-namespace

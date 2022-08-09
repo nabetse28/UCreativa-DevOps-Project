@@ -2,14 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: myapp
   labels:
-    app: ucreativa-proyecto-microservicios
+    app: {{ include "ucreativa-devops-project.fullname" . }}
     tier: frontend
 spec:
   selector:
     matchLabels:
-      app: ucreativa-proyecto-microservicios
+      app: {{ include "ucreativa-devops-project.fullname" . }}
       name: frontend-deployment
       tier: frontend
   replicas: 3
@@ -21,13 +20,13 @@ spec:
   template:
     metadata:
       labels:
-        app: ucreativa-proyecto-microservicios
+        app: {{ include "ucreativa-devops-project.fullname" . }}
         name: frontend-deployment
         tier: frontend
     spec:
       containers:
         - name: frontend
-          image: nabetse28/frontend
-          imagePullPolicy: IfNotPresent
+          image: '{{ .Values.image.repository }}/frontend:{{ .Values.image.tag}}'
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3000

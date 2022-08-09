@@ -2,14 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: myapp
   labels:
-    app: ucreativa-proyecto-microservicios
+    app: {{ include "ucreativa-devops-project.fullname" . }}
     tier: backend
 spec:
   selector:
     matchLabels:
-      app: ucreativa-proyecto-microservicios
+      app: {{ include "ucreativa-devops-project.fullname" . }}
       name: backend-deployment
       tier: backend
   replicas: 3
@@ -21,14 +20,14 @@ spec:
   template:
     metadata:
       labels:
-        app: ucreativa-proyecto-microservicios
+        app: {{ include "ucreativa-devops-project.fullname" . }}
         name: backend-deployment
         tier: backend
     spec:
       containers:
         - name: backend
-          image: nabetse28/backend
-          imagePullPolicy: IfNotPresent
+          image: '{{ .Values.image.repository }}/backend:{{ .Values.image.tag}}'
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: MONGO_USER
               valueFrom:

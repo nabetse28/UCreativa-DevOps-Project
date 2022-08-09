@@ -2,20 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-deployment
-  namespace: myapp
   labels:
-    app: ucreativa-proyecto-microservicios
+    app: {{ include "ucreativa-devops-project.fullname" . }}
     tier: database
 spec:
   selector:
     matchLabels:
-      app: ucreativa-proyecto-microservicios
+      app: {{ include "ucreativa-devops-project.fullname" . }}
       name: mongo-deployment
       tier: database
   template:
     metadata:
       labels:
-        app: ucreativa-proyecto-microservicios
+        app: {{ include "ucreativa-devops-project.fullname" . }}
         name: mongo-deployment
         tier: database
     spec:
