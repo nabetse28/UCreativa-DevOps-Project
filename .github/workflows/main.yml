@@ -23,8 +23,10 @@ env:
   NAMESPACE: 'ucreativa'
   HELM_CHART: 'helm/ucreativa-devops-project'
   HELM_RELEASE: 'ucreativa-devops-project'
-  AWS_CLUSTER_NAME: 'ucreativaCluster'
-  AWS_REGION: 'us-east-1'
+  # AWS_CLUSTER_NAME: 'ucreativaCluster'
+  # AWS_REGION: 'us-east-1'
+  AWS_CLUSTER_NAME: 'ucreativa-cluster'
+  AWS_REGION: 'us-west-1'
 
 jobs:
   test:
