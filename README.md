@@ -18,7 +18,9 @@ Esta aplicacion tiene como objetivo mediante la interfaz grafica poder crear una
 ### Para FrontEnd Development:
 
 - [REACT](https://reactjs.org/) A JavaScript library for building user interfaces.
-- [Semantic React UI](https://react.semantic-ui.com/) Semantic UI React provides a way to compose React components through the as prop. It allows composing component features and props without adding extra nested components.
+
+![](Capture.PNG)
+
 
 ### Para Deployment:
 
