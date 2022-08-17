@@ -11,11 +11,11 @@ La aplicación consiste en mediante una interfaz gráfica poder crear una ficha 
 
 ## Requerimientos
 
-## Para Planeamiento y control de tareas:
+### Para Planeamiento y control de tareas:
 
 - [Trello](https://trello.com/b/LwVKMl9k/devops-task) Utilizado para organizar tareas mediante la metodología Kanban.
 
-## Para versionamiento y source control management:
+### Para versionamiento y source control management:
 
 - [GitHub](https://github.com/nabetse28/UCreativa-DevOps-Project) Hostea el repositorio donde esta nuestra aplicación.
 
